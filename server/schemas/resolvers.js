@@ -9,7 +9,21 @@ const resolvers = {
         user: async () => {
             return User.find({});
         },
-    }
+    },
+    Mutation: {
+        login: async(parent, args) => {
+            
+        },
+        addUser: async(parent, args) => {
+
+        },
+        saveBook: async(parent, args) => {
+
+        },
+        removeBook: async(parent, args) => {
+
+        },
+    },
 };
 
 module.exports = resolvers;
