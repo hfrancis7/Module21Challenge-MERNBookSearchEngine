@@ -6,8 +6,10 @@ const { Book, User } = require("../models");
 
 const resolvers = {
     Query: {
-        tech: async () => {
-            return Tech.find
+        user: async () => {
+            return User.find({});
         },
     }
-}
+};
+
+module.exports = resolvers;
