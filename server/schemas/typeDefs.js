@@ -60,6 +60,11 @@ const typeDefs = gql`
         link: String
         title: String!
     }
+
+    type Auth {
+        token: String!
+        user: User!
+    }
 `;
 
 module.exports = typeDefs;
