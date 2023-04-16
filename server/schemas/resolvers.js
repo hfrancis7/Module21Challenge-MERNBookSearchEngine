@@ -12,7 +12,7 @@ const resolvers = {
         //gets the current user 
         me: async(parent, args, context) => {
             if(context.user){
-                return User.findOne({_id: context.user._id }).populate('books')
+                return User.findOne({_id: context.user._id });
             }
             
         },
