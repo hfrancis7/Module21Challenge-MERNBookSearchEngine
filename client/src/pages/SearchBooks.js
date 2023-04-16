@@ -11,9 +11,9 @@ import {
 import Auth from '../utils/auth';
 import { saveBook, searchGoogleBooks } from '../utils/API';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
-
-//TODO: Use the Apollo useMutation() Hook to execute the SAVE_BOOK mutation in the handleSaveBook() function instead of using the saveBook() function imported from the API file
-  //make sure you keep the logic for saving the book's ID to state in the try...catch block!
+import { useMutation, useQuery} from '@apollo/client';
+import {SAVE_BOOK} from "../utils/mutations"
+import { useParams } from 'react-router-dom';
 
 const SearchBooks = () => {
   // create state for holding returned google api data
@@ -62,6 +62,9 @@ const SearchBooks = () => {
     }
   };
 
+  //TODO: Use the Apollo useMutation() Hook to execute the SAVE_BOOK mutation in the handleSaveBook() function instead of using the saveBook() function imported from the API file
+  //make sure you keep the logic for saving the book's ID to state in the try...catch block!
+
   // create function to handle saving a book to our database
   const handleSaveBook = async (bookId) => {
     // find the book in `searchedBooks` state by the matching id
@@ -75,7 +78,16 @@ const SearchBooks = () => {
     }
 
     try {
-      const response = await saveBook(bookToSave, token);
+      const { loading, response } = useMutation(SAVE_BOOK, {
+        variables: {authors: bookToSave.authors, description: bookToSave.description, bookId: bookToSave.bookId, image: bookToSave.image, link: bookToSave.link, title: bookToSave.title}
+      });
+
+      if(loading){
+        return <div>Loading...</div>;
+      }
+      
+      
+      //const response = await saveBook(bookToSave, token);
 
       if (!response.ok) {
         throw new Error('something went wrong!');
